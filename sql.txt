@@ -1,0 +1,3 @@
+select c.* from (select b.app_id from system.asec_app_category as b where b.tag_business = 1) as 
+d join (select a.*,c.app_id from (select * from system.detection_phishing_result where update_time > '2019-06-22 00:00:00') as a join system.asec_app_meta as c
+on a.file_hash = c.file_hash) as c on d.app_id = c.app_id;

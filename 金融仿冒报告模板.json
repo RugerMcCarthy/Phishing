@@ -1,0 +1,63 @@
+{
+  "category": "金融仿冒应用检测报告",
+  "reportTime": "2018-6-29",
+  "summary": "仿冒系统对市场上300多家应用商店进行实时监测，在2018月6月22日—2018年6月28日的时间段一共监测到12款金融仿冒应用。",
+  "phishingApps": [
+    {
+      "appName": "投配宝",
+      "basicInfo": {
+        "result": "二次打包应用",
+        "appName": "投配宝",
+        "SHA256": "0e2151871d6d6e38f8dab0839475e766d68f133b16b229cf9a7bdbf6bd2a49d4",
+        "fileSize": "1.337MB",
+        "version": "1.0",
+        "isJiaGu": "否",
+        "jiaGuCategory": "无"
+      },
+      "diffInfo": {
+        "phishingApp": {
+          "img": "",
+          "appName": "投配宝",
+          "packageName": "com.juxin.wz.tpcf",
+          "version": "1.0",
+          "newPriority": "无",
+          "cerHash": "61:2F:6E:5B:83:BD:CE:98:F3:47:77:AB:43:21:36:AD",
+          "cerOwner": "CN=junxin, OU=junxin, O=junxin, L=hangzhou, ST=zhejiang, C=cn",
+          "certifiedTime": "2016-12-26 12:15:36",
+          "cerSerialNum": "5e57fd4d"
+        },
+        "legalApp": {
+          "img": "",
+          "appName": "投配宝",
+          "packageName": "com.home5566.loan",
+          "version": "1.0",
+          "newPriority": "无",
+          "cerHash": "B6:D0:5F:DA:06:3D:71:76:4A:B1:7B:BA:CE:C1:EE:1C",
+          "cerOwner": "CN=t, OU=h, O=c, L=l, ST=j, C=y",
+          "certifiedTime": "2017-08-07 08:17:08",
+          "cerSerialNum": "7206b36f"
+        },
+        "similars": {
+          "imgSimilar": "1.0",
+          "appNameSimilar": "0.9",
+          "packageNameSimilar": "0.8",
+          "codeSimilar": "0.438494"
+        }
+      },
+      "channelDistribution": [
+        {
+          "appStore": "数码资源网",
+          "crawlerTime": "2018-06-23 13:17:50",
+          "detailUrl": "http://www.smzy.com/android/346276.html",
+          "downloadUrl": "http://d1.smzy.com/2017/sort01738/smzy_toupeibao.apk"
+        },
+        {
+          "appStore": "当下软件园",
+          "crawlerTime": "2018-05-31 13:21:29",
+          "detailUrl": "http://www.downxia.com/downinfo/156832.html",
+          "downloadUrl": "http://download.downxia.com/down/apk/toupeibao.apk"
+        }
+      ]
+    }
+  ]
+}

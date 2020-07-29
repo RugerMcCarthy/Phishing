@@ -1,0 +1,1849 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <parameters>
+        <scalar-parameter name="data" id="4">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="JSON" id="46"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="imgDataSet" id="799">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">imgRowData</property>
+                    <property name="dataType">javaObject</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">imgRowData</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">iconData</property>
+                    <property name="dataType">javaObject</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">imgRowData</property>
+                        <property name="dataType">javaObject</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">JSON</property>
+            <method name="open"><![CDATA[// This will track your current section
+iconCount = 0;  
+
+// Calculate the total rows we will have (输入的对象数组的长度) 
+iconTotalCount = inputParams["iconData"].length;]]></method>
+            <method name="fetch"><![CDATA[//循环取出输入的对象数组的每一个对象 放到一个列名为rowData的行里（这个行存储的数据类型是object）
+if(iconCount < iconTotalCount){  
+    row["imgRowData"] = inputParams["iconData"][iconCount]; 
+    iconCount++;  
+    return true;  
+}  
+return false;  ]]></method>
+        </script-data-set>
+        <script-data-set name="pieDataSet" id="1020">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">riskLevel</property>
+                    <property name="dataType">javaObject</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">riskValue</property>
+                    <property name="dataType">javaObject</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">riskLevel</property>
+                </structure>
+                <structure>
+                    <property name="columnName">riskValue</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">pieData</property>
+                    <property name="dataType">javaObject</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">riskLevel</property>
+                        <property name="dataType">javaObject</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">riskValue</property>
+                        <property name="dataType">javaObject</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">JSON</property>
+            <method name="open"><![CDATA[// This will track your current section
+Count = 0;  
+
+// Calculate the total rows we will have (输入的对象数组的长度) 
+TotalCount = inputParams["pieData"].length;]]></method>
+            <method name="fetch"><![CDATA[//循环取出输入的对象数组的每一个对象 放到一个列名为rowData的行里（这个行存储的数据类型是object）
+if(Count < TotalCount){  
+    row["riskLevel"] = inputParams["pieData"][Count].riskLevel; 
+    row["riskValue"] = inputParams["pieData"][Count].riskValue; 
+    Count++;  
+    return true;  
+}  
+return false;  ]]></method>
+        </script-data-set>
+        <script-data-set name="sectionDataSet" id="531">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">rowData</property>
+                    <property name="dataType">javaObject</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">rowData</property>
+                    <text-property name="displayName" key="rowData"></text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">sectionData</property>
+                    <property name="dataType">javaObject</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">rowData</property>
+                        <property name="dataType">javaObject</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">JSON</property>
+            <method name="open"><![CDATA[// This will track your current section
+sectionCount = 0;  
+
+// Calculate the total rows we will have  
+totalSectionCount = inputParams["sectionData"].length;]]></method>
+            <method name="fetch"><![CDATA[if(sectionCount < totalSectionCount){  
+    row["rowData"] = inputParams["sectionData"][sectionCount]; 
+    sectionCount++;  
+    return true;  
+}  
+  
+return false;  
+]]></method>
+        </script-data-set>
+        <script-data-set name="stepsDataSet" id="532">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">rowData</property>
+                    <property name="dataType">javaObject</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">rowData</property>
+                    <text-property name="displayName" key="rowData"></text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">stepData</property>
+                    <property name="dataType">javaObject</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">rowData</property>
+                        <property name="dataType">javaObject</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">JSON</property>
+            <method name="open"><![CDATA[// This will track your current section
+stepCount = 0;  
+
+// Calculate the total rows we will have (输入的对象数组的长度) 
+stepTotalCount = inputParams["stepData"].length;]]></method>
+            <method name="fetch"><![CDATA[//循环取出输入的对象数组的每一个对象 放到一个列名为rowData的行里（这个行存储的数据类型是object）
+if(stepCount < stepTotalCount){  
+    row["rowData"] = inputParams["stepData"][stepCount]; 
+    stepCount++;  
+    return true;  
+}  
+return false;  
+]]></method>
+        </script-data-set>
+        <script-data-set name="appTestResultDataSet" id="1124">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">0</property>
+                    <property name="name">num</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">patternNum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">patternName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">riskLevel</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">num</property>
+                </structure>
+                <structure>
+                    <property name="columnName">patternNum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">patternName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">riskLevel</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">testResultData</property>
+                    <property name="dataType">javaObject</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">num</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">patternNum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">patternName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">riskLevel</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">JSON</property>
+            <method name="open"><![CDATA[// This will track your current section
+Count = 0;  
+
+// Calculate the total rows we will have (输入的对象数组的长度) 
+TotalCount = inputParams["testResultData"].length;]]></method>
+            <method name="fetch"><![CDATA[//循环取出输入的对象数组的每一个对象 放到一个列名为rowData的行里（这个行存储的数据类型是object）
+if(Count < TotalCount){  
+    row["num"] = inputParams["testResultData"][Count].num; 
+    row["patternNum"] = inputParams["testResultData"][Count].patternNum; 
+    row["patternName"] = inputParams["testResultData"][Count].patternName;
+    row["riskLevel"] = inputParams["testResultData"][Count].riskLevel;
+    Count++;  
+    return true;  
+}  
+return false;  ]]></method>
+        </script-data-set>
+        <script-data-set name="vulnerabilityGroupDataSet" id="1129">
+            <structure name="cachedMetaData"/>
+            <property name="dataSource">JSON</property>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="borderStyle" id="1218">
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">thin</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">thin</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">thin</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">thin</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">a4</property>
+            <property name="leftMargin">0.5in</property>
+            <property name="bottomMargin">0.25in</property>
+            <property name="rightMargin">0.5in</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <text-data id="1021">
+            <property name="fontSize">x-large</property>
+            <property name="textAlign">center</property>
+            <expression name="valueExpr">JSON.parse(params["data"].value).reportTitle</expression>
+            <property name="contentType">html</property>
+        </text-data>
+        <text-data id="1022">
+            <property name="fontFamily">"Microsoft YaHei"</property>
+            <property name="fontSize">14pt</property>
+            <property name="marginTop">30px</property>
+            <expression name="valueExpr">1 + "." + 1 + "  " + JSON.parse(params["data"].value).dataDetail.step1.titleLevel</expression>
+            <property name="contentType">html</property>
+        </text-data>
+        <text-data id="1023">
+            <property name="fontSize">12pt</property>
+            <property name="marginTop">10px</property>
+            <property name="whiteSpace">normal</property>
+            <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.conclusion</expression>
+            <property name="contentType">html</property>
+        </text-data>
+        <extended-item extensionName="Chart" id="1024">
+            <xml-property name="xmlRepresentation"><![CDATA[<model:ChartWithoutAxes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attribute="http://www.birt.eclipse.org/ChartModelAttribute" xmlns:layout="http://www.birt.eclipse.org/ChartModelLayout" xmlns:model="http://www.birt.eclipse.org/ChartModel" xmlns:type="http://www.birt.eclipse.org/ChartModelType">
+  <Version>2.6.1</Version>
+  <Type>Pie Chart</Type>
+  <SubType>Standard</SubType>
+  <Block>
+    <Children xsi:type="layout:TitleBlock">
+      <Bounds>
+        <Left>0.0</Left>
+        <Top>0.0</Top>
+        <Width>0.0</Width>
+        <Height>0.0</Height>
+      </Bounds>
+      <Insets>
+        <Top>3.0</Top>
+        <Left>3.0</Left>
+        <Bottom>3.0</Bottom>
+        <Right>3.0</Right>
+      </Insets>
+      <Row>-1</Row>
+      <Column>-1</Column>
+      <Rowspan>-1</Rowspan>
+      <Columnspan>-1</Columnspan>
+      <Outline>
+        <Style>Solid</Style>
+        <Thickness>1</Thickness>
+        <Color>
+          <Transparency>255</Transparency>
+          <Red>0</Red>
+          <Green>0</Green>
+          <Blue>0</Blue>
+        </Color>
+        <Visible>false</Visible>
+      </Outline>
+      <Visible>true</Visible>
+      <Label>
+        <Caption>
+          <Value>APP安全威胁等级分布图</Value>
+          <Font>
+            <Size>12.0</Size>
+            <Bold>true</Bold>
+            <Alignment>
+              <horizontalAlignment>Center</horizontalAlignment>
+              <verticalAlignment>Center</verticalAlignment>
+            </Alignment>
+          </Font>
+        </Caption>
+        <Background xsi:type="attribute:ColorDefinition">
+          <Transparency>0</Transparency>
+          <Red>255</Red>
+          <Green>255</Green>
+          <Blue>255</Blue>
+        </Background>
+        <Outline>
+          <Style>Solid</Style>
+          <Thickness>1</Thickness>
+          <Color>
+            <Transparency>255</Transparency>
+            <Red>0</Red>
+            <Green>0</Green>
+            <Blue>0</Blue>
+          </Color>
+        </Outline>
+        <Insets>
+          <Top>0.0</Top>
+          <Left>2.0</Left>
+          <Bottom>0.0</Bottom>
+          <Right>3.0</Right>
+        </Insets>
+        <Visible>true</Visible>
+      </Label>
+    </Children>
+    <Children xsi:type="layout:Plot">
+      <Bounds>
+        <Left>0.0</Left>
+        <Top>0.0</Top>
+        <Width>0.0</Width>
+        <Height>0.0</Height>
+      </Bounds>
+      <Stretch>Both</Stretch>
+      <Insets>
+        <Top>0.0</Top>
+        <Left>0.0</Left>
+        <Bottom>0.0</Bottom>
+        <Right>0.0</Right>
+      </Insets>
+      <Row>-1</Row>
+      <Column>-1</Column>
+      <Rowspan>-1</Rowspan>
+      <Columnspan>-1</Columnspan>
+      <Outline>
+        <Style>Solid</Style>
+        <Thickness>1</Thickness>
+        <Color>
+          <Transparency>255</Transparency>
+          <Red>0</Red>
+          <Green>0</Green>
+          <Blue>0</Blue>
+        </Color>
+        <Visible>false</Visible>
+      </Outline>
+      <Visible>true</Visible>
+      <HorizontalSpacing>0</HorizontalSpacing>
+      <VerticalSpacing>0</VerticalSpacing>
+      <ClientArea>
+        <Outline>
+          <Style>Solid</Style>
+          <Thickness>0</Thickness>
+          <Color>
+            <Transparency>255</Transparency>
+            <Red>0</Red>
+            <Green>0</Green>
+            <Blue>0</Blue>
+          </Color>
+          <Visible>false</Visible>
+        </Outline>
+        <Insets>
+          <Top>0.0</Top>
+          <Left>0.0</Left>
+          <Bottom>0.0</Bottom>
+          <Right>0.0</Right>
+        </Insets>
+      </ClientArea>
+    </Children>
+    <Children xsi:type="layout:Legend">
+      <Bounds>
+        <Left>0.0</Left>
+        <Top>0.0</Top>
+        <Width>0.0</Width>
+        <Height>0.0</Height>
+      </Bounds>
+      <Anchor>North</Anchor>
+      <Stretch>Horizontal</Stretch>
+      <Insets>
+        <Top>0.0</Top>
+        <Left>0.0</Left>
+        <Bottom>0.0</Bottom>
+        <Right>0.0</Right>
+      </Insets>
+      <Row>-1</Row>
+      <Column>-1</Column>
+      <Rowspan>-1</Rowspan>
+      <Columnspan>-1</Columnspan>
+      <Outline>
+        <Style>Solid</Style>
+        <Thickness>1</Thickness>
+        <Color>
+          <Transparency>255</Transparency>
+          <Red>0</Red>
+          <Green>0</Green>
+          <Blue>0</Blue>
+        </Color>
+        <Visible>false</Visible>
+      </Outline>
+      <Visible>true</Visible>
+      <Cursor>
+        <Type>Auto</Type>
+      </Cursor>
+      <ClientArea>
+        <Outline>
+          <Style>Solid</Style>
+          <Thickness>0</Thickness>
+          <Color>
+            <Transparency>255</Transparency>
+            <Red>0</Red>
+            <Green>0</Green>
+            <Blue>0</Blue>
+          </Color>
+          <Visible>true</Visible>
+        </Outline>
+        <Insets>
+          <Top>2.0</Top>
+          <Left>2.0</Left>
+          <Bottom>2.0</Bottom>
+          <Right>2.0</Right>
+        </Insets>
+      </ClientArea>
+      <Text>
+        <Value></Value>
+        <Font>
+          <Alignment/>
+        </Font>
+      </Text>
+      <Orientation>Vertical</Orientation>
+      <Direction>Left_Right</Direction>
+      <Separator>
+        <Style>Solid</Style>
+        <Thickness>1</Thickness>
+        <Color>
+          <Transparency>255</Transparency>
+          <Red>0</Red>
+          <Green>0</Green>
+          <Blue>0</Blue>
+        </Color>
+        <Visible>true</Visible>
+      </Separator>
+      <Position>Left</Position>
+      <ItemType>Categories</ItemType>
+      <Title>
+        <Caption>
+          <Value></Value>
+          <Font>
+            <Alignment/>
+          </Font>
+        </Caption>
+        <Background xsi:type="attribute:ColorDefinition">
+          <Transparency>0</Transparency>
+          <Red>255</Red>
+          <Green>255</Green>
+          <Blue>255</Blue>
+        </Background>
+        <Outline>
+          <Style>Solid</Style>
+          <Thickness>1</Thickness>
+          <Color>
+            <Transparency>255</Transparency>
+            <Red>0</Red>
+            <Green>0</Green>
+            <Blue>0</Blue>
+          </Color>
+          <Visible>false</Visible>
+        </Outline>
+        <Insets>
+          <Top>0.0</Top>
+          <Left>2.0</Left>
+          <Bottom>0.0</Bottom>
+          <Right>3.0</Right>
+        </Insets>
+        <Visible>false</Visible>
+      </Title>
+      <TitlePosition>Above</TitlePosition>
+      <WrappingSize>0.0</WrappingSize>
+      <MaxPercent>0.2</MaxPercent>
+      <TitlePercent>0.5</TitlePercent>
+    </Children>
+    <Bounds>
+      <Left>0.0</Left>
+      <Top>0.0</Top>
+      <Width>572.25</Width>
+      <Height>286.125</Height>
+    </Bounds>
+    <Insets>
+      <Top>3.0</Top>
+      <Left>3.0</Left>
+      <Bottom>3.0</Bottom>
+      <Right>3.0</Right>
+    </Insets>
+    <Row>-1</Row>
+    <Column>-1</Column>
+    <Rowspan>-1</Rowspan>
+    <Columnspan>-1</Columnspan>
+    <Outline>
+      <Style>Solid</Style>
+      <Thickness>1</Thickness>
+      <Color>
+        <Transparency>255</Transparency>
+        <Red>0</Red>
+        <Green>0</Green>
+        <Blue>0</Blue>
+      </Color>
+      <Visible>false</Visible>
+    </Outline>
+    <Visible>true</Visible>
+  </Block>
+  <Dimension>Two_Dimensional</Dimension>
+  <Units>Points</Units>
+  <SeriesThickness>10.0</SeriesThickness>
+  <GridColumnCount>0</GridColumnCount>
+  <ExtendedProperties>
+    <Name>enable.area.alt</Name>
+    <Value>false</Value>
+  </ExtendedProperties>
+  <SampleData>
+    <BaseSampleData>
+      <DataSetRepresentation>'A','B','C','D','E'</DataSetRepresentation>
+    </BaseSampleData>
+    <OrthogonalSampleData>
+      <DataSetRepresentation>6,4,12,8,10</DataSetRepresentation>
+      <SeriesDefinitionIndex>0</SeriesDefinitionIndex>
+    </OrthogonalSampleData>
+  </SampleData>
+  <Interactivity>
+    <Enable>true</Enable>
+  </Interactivity>
+  <EmptyMessage>
+    <Caption>
+      <Value>This chart contains no data.</Value>
+      <Font>
+        <Alignment>
+          <horizontalAlignment>Center</horizontalAlignment>
+          <verticalAlignment>Center</verticalAlignment>
+        </Alignment>
+      </Font>
+    </Caption>
+    <Background xsi:type="attribute:ColorDefinition">
+      <Transparency>64</Transparency>
+      <Red>127</Red>
+      <Green>127</Green>
+      <Blue>127</Blue>
+    </Background>
+    <Outline>
+      <Color>
+        <Transparency>128</Transparency>
+        <Red>127</Red>
+        <Green>127</Green>
+        <Blue>127</Blue>
+      </Color>
+      <Visible>true</Visible>
+    </Outline>
+    <Insets>
+      <Top>10.0</Top>
+      <Left>10.0</Left>
+      <Bottom>10.0</Bottom>
+      <Right>10.0</Right>
+    </Insets>
+    <Visible>false</Visible>
+  </EmptyMessage>
+  <SeriesDefinitions>
+    <Query>
+      <Definition></Definition>
+    </Query>
+    <SeriesPalette>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>80</Red>
+        <Green>166</Green>
+        <Blue>218</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>242</Red>
+        <Green>88</Green>
+        <Blue>106</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>232</Red>
+        <Green>172</Green>
+        <Blue>57</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>128</Red>
+        <Green>255</Green>
+        <Blue>128</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>64</Red>
+        <Green>128</Green>
+        <Blue>128</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>128</Red>
+        <Green>128</Green>
+        <Blue>192</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>170</Red>
+        <Green>85</Green>
+        <Blue>85</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>128</Red>
+        <Green>128</Green>
+        <Blue>0</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>192</Red>
+        <Green>192</Green>
+        <Blue>192</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>255</Red>
+        <Green>255</Green>
+        <Blue>128</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>128</Red>
+        <Green>192</Green>
+        <Blue>128</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>7</Red>
+        <Green>146</Green>
+        <Blue>94</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>0</Red>
+        <Green>128</Green>
+        <Blue>255</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>255</Red>
+        <Green>128</Green>
+        <Blue>192</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>0</Red>
+        <Green>255</Green>
+        <Blue>255</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>255</Red>
+        <Green>128</Green>
+        <Blue>128</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>0</Red>
+        <Green>128</Green>
+        <Blue>192</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>255</Red>
+        <Green>0</Green>
+        <Blue>255</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>128</Red>
+        <Green>64</Green>
+        <Blue>64</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>255</Red>
+        <Green>128</Green>
+        <Blue>64</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>80</Red>
+        <Green>240</Green>
+        <Blue>120</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>0</Red>
+        <Green>64</Green>
+        <Blue>128</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>128</Red>
+        <Green>0</Green>
+        <Blue>64</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>255</Red>
+        <Green>0</Green>
+        <Blue>128</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>128</Red>
+        <Green>128</Green>
+        <Blue>64</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>128</Red>
+        <Green>128</Green>
+        <Blue>128</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>255</Red>
+        <Green>128</Green>
+        <Blue>255</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>0</Red>
+        <Green>64</Green>
+        <Blue>0</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>0</Red>
+        <Green>0</Green>
+        <Blue>0</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>255</Red>
+        <Green>255</Green>
+        <Blue>255</Blue>
+      </Entries>
+      <Entries xsi:type="attribute:ColorDefinition">
+        <Transparency>255</Transparency>
+        <Red>255</Red>
+        <Green>128</Green>
+        <Blue>0</Blue>
+      </Entries>
+    </SeriesPalette>
+    <SeriesDefinitions>
+      <Query>
+        <Definition></Definition>
+      </Query>
+      <SeriesPalette>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>80</Red>
+          <Green>166</Green>
+          <Blue>218</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>242</Red>
+          <Green>88</Green>
+          <Blue>106</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>232</Red>
+          <Green>172</Green>
+          <Blue>57</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>128</Red>
+          <Green>255</Green>
+          <Blue>128</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>64</Red>
+          <Green>128</Green>
+          <Blue>128</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>128</Red>
+          <Green>128</Green>
+          <Blue>192</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>170</Red>
+          <Green>85</Green>
+          <Blue>85</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>128</Red>
+          <Green>128</Green>
+          <Blue>0</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>192</Red>
+          <Green>192</Green>
+          <Blue>192</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>255</Red>
+          <Green>255</Green>
+          <Blue>128</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>128</Red>
+          <Green>192</Green>
+          <Blue>128</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>7</Red>
+          <Green>146</Green>
+          <Blue>94</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>0</Red>
+          <Green>128</Green>
+          <Blue>255</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>255</Red>
+          <Green>128</Green>
+          <Blue>192</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>0</Red>
+          <Green>255</Green>
+          <Blue>255</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>255</Red>
+          <Green>128</Green>
+          <Blue>128</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>0</Red>
+          <Green>128</Green>
+          <Blue>192</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>255</Red>
+          <Green>0</Green>
+          <Blue>255</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>128</Red>
+          <Green>64</Green>
+          <Blue>64</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>255</Red>
+          <Green>128</Green>
+          <Blue>64</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>80</Red>
+          <Green>240</Green>
+          <Blue>120</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>0</Red>
+          <Green>64</Green>
+          <Blue>128</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>128</Red>
+          <Green>0</Green>
+          <Blue>64</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>255</Red>
+          <Green>0</Green>
+          <Blue>128</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>128</Red>
+          <Green>128</Green>
+          <Blue>64</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>128</Red>
+          <Green>128</Green>
+          <Blue>128</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>255</Red>
+          <Green>128</Green>
+          <Blue>255</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>0</Red>
+          <Green>64</Green>
+          <Blue>0</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>0</Red>
+          <Green>0</Green>
+          <Blue>0</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>255</Red>
+          <Green>255</Green>
+          <Blue>255</Blue>
+        </Entries>
+        <Entries xsi:type="attribute:ColorDefinition">
+          <Transparency>255</Transparency>
+          <Red>255</Red>
+          <Green>128</Green>
+          <Blue>0</Blue>
+        </Entries>
+      </SeriesPalette>
+      <Series xsi:type="type:PieSeries">
+        <Visible>true</Visible>
+        <Label>
+          <Caption>
+            <Value></Value>
+            <Font>
+              <Alignment/>
+            </Font>
+          </Caption>
+          <Background xsi:type="attribute:ColorDefinition">
+            <Transparency>0</Transparency>
+            <Red>255</Red>
+            <Green>255</Green>
+            <Blue>255</Blue>
+          </Background>
+          <Outline>
+            <Style>Solid</Style>
+            <Thickness>1</Thickness>
+            <Color>
+              <Transparency>255</Transparency>
+              <Red>0</Red>
+              <Green>0</Green>
+              <Blue>0</Blue>
+            </Color>
+            <Visible>false</Visible>
+          </Outline>
+          <Insets>
+            <Top>0.0</Top>
+            <Left>2.0</Left>
+            <Bottom>0.0</Bottom>
+            <Right>3.0</Right>
+          </Insets>
+          <Visible>true</Visible>
+        </Label>
+        <DataDefinition>
+          <Definition>row[&quot;riskValue&quot;]</Definition>
+          <Grouping>
+            <GroupType>Text</GroupType>
+            <AggregateExpression>Sum</AggregateExpression>
+          </Grouping>
+        </DataDefinition>
+        <DataPoint>
+          <Components>
+            <Type>Percentile_Orthogonal_Value</Type>
+          </Components>
+          <Separator></Separator>
+        </DataPoint>
+        <LabelPosition>Inside</LabelPosition>
+        <Stacked>false</Stacked>
+        <Triggers>
+          <Condition>onmouseover</Condition>
+          <Action>
+            <Type>Show_Tooltip</Type>
+            <Value xsi:type="attribute:TooltipValue">
+              <Text></Text>
+              <Delay>200</Delay>
+            </Value>
+          </Action>
+        </Triggers>
+        <Translucent>false</Translucent>
+        <Explosion>0</Explosion>
+        <Title>
+          <Caption>
+            <Value></Value>
+            <Font>
+              <Size>16.0</Size>
+              <Bold>true</Bold>
+              <Alignment/>
+            </Font>
+          </Caption>
+          <Background xsi:type="attribute:ColorDefinition">
+            <Transparency>0</Transparency>
+            <Red>255</Red>
+            <Green>255</Green>
+            <Blue>255</Blue>
+          </Background>
+          <Outline>
+            <Style>Solid</Style>
+            <Thickness>1</Thickness>
+            <Color>
+              <Transparency>255</Transparency>
+              <Red>0</Red>
+              <Green>0</Green>
+              <Blue>0</Blue>
+            </Color>
+          </Outline>
+          <Insets>
+            <Top>0.0</Top>
+            <Left>2.0</Left>
+            <Bottom>0.0</Bottom>
+            <Right>3.0</Right>
+          </Insets>
+          <Visible>true</Visible>
+        </Title>
+        <TitlePosition>Below</TitlePosition>
+        <LeaderLineAttributes>
+          <Style>Solid</Style>
+          <Thickness>1</Thickness>
+          <Visible>true</Visible>
+        </LeaderLineAttributes>
+        <LeaderLineLength>10.0</LeaderLineLength>
+      </Series>
+      <Grouping>
+        <GroupType>Text</GroupType>
+        <AggregateExpression>Sum</AggregateExpression>
+      </Grouping>
+    </SeriesDefinitions>
+    <Series>
+      <Visible>true</Visible>
+      <Label>
+        <Caption>
+          <Value></Value>
+          <Font>
+            <Alignment/>
+          </Font>
+        </Caption>
+        <Background xsi:type="attribute:ColorDefinition">
+          <Transparency>0</Transparency>
+          <Red>255</Red>
+          <Green>255</Green>
+          <Blue>255</Blue>
+        </Background>
+        <Outline>
+          <Style>Solid</Style>
+          <Thickness>1</Thickness>
+          <Color>
+            <Transparency>255</Transparency>
+            <Red>0</Red>
+            <Green>0</Green>
+            <Blue>0</Blue>
+          </Color>
+          <Visible>false</Visible>
+        </Outline>
+        <Insets>
+          <Top>0.0</Top>
+          <Left>2.0</Left>
+          <Bottom>0.0</Bottom>
+          <Right>3.0</Right>
+        </Insets>
+        <Visible>false</Visible>
+      </Label>
+      <DataDefinition>
+        <Definition>row[&quot;riskLevel&quot;]</Definition>
+      </DataDefinition>
+      <SeriesIdentifier></SeriesIdentifier>
+      <DataPoint>
+        <Components>
+          <Type>Orthogonal_Value</Type>
+        </Components>
+        <Separator>, </Separator>
+      </DataPoint>
+      <LabelPosition>Outside</LabelPosition>
+      <Stacked>false</Stacked>
+    </Series>
+    <Grouping>
+      <Enabled>true</Enabled>
+      <GroupType>Text</GroupType>
+      <AggregateExpression>Sum</AggregateExpression>
+    </Grouping>
+  </SeriesDefinitions>
+  <MinSlicePercent>false</MinSlicePercent>
+  <Coverage>0.7</Coverage>
+</model:ChartWithoutAxes>
+]]></xml-property>
+            <property name="outputFormat">SVG</property>
+            <property name="inheritColumns">false</property>
+            <property name="marginTop">5px</property>
+            <property name="height">231.75pt</property>
+            <property name="width">522pt</property>
+            <structure name="toc"/>
+            <property name="dataSet">pieDataSet</property>
+            <list-property name="paramBindings">
+                <structure>
+                    <property name="paramName">pieData</property>
+                    <simple-property-list name="expression">
+                        <value>JSON.parse(params["data"].value).dataDetail.step1.pieData</value>
+                    </simple-property-list>
+                </structure>
+            </list-property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">riskLevel</property>
+                    <text-property name="displayName">riskLevel</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["riskLevel"]</expression>
+                    <property name="dataType">javaObject</property>
+                </structure>
+                <structure>
+                    <property name="name">riskValue</property>
+                    <text-property name="displayName">riskValue</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["riskValue"]</expression>
+                    <property name="dataType">javaObject</property>
+                </structure>
+            </list-property>
+        </extended-item>
+        <text id="1223">
+            <property name="fontSize">14pt</property>
+            <property name="marginTop">0pt</property>
+            <property name="marginBottom">10px</property>
+            <property name="textAlign">center</property>
+            <property name="contentType">html</property>
+            <text-property name="content"><![CDATA[APP的基本信息]]></text-property>
+        </text>
+        <grid id="1225">
+            <property name="textAlign">center</property>
+            <column id="1226"/>
+            <row id="1227">
+                <cell id="1228">
+                    <grid id="1026">
+                        <property name="marginTop">5px</property>
+                        <property name="marginBottom">3px</property>
+                        <property name="textAlign">left</property>
+                        <property name="width">95%</property>
+                        <structure name="toc"/>
+                        <column id="1027">
+                            <property name="style">borderStyle</property>
+                            <property name="width">22%</property>
+                        </column>
+                        <column id="1028">
+                            <property name="style">borderStyle</property>
+                        </column>
+                        <row id="1029">
+                            <cell id="1030">
+                                <text id="1068">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[原本文件名]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="1031">
+                                <text-data id="1081">
+                                    <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.appInfo.originName</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="1032">
+                            <cell id="1033">
+                                <text id="1069">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[文件MD5值]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="1034">
+                                <text-data id="1084">
+                                    <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.appInfo.fileMD5</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="1035">
+                            <cell id="1036">
+                                <text id="1070">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[文件SHA1值]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="1037">
+                                <text-data id="1085">
+                                    <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.appInfo.fileSHA1</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="1038">
+                            <cell id="1039">
+                                <text id="1071">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[程序名称]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="1040">
+                                <text-data id="1086">
+                                    <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.appInfo.appName</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="1041">
+                            <cell id="1042">
+                                <text id="1072">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[文件版本]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="1043">
+                                <text-data id="1087">
+                                    <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.appInfo.appVersion</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="1044">
+                            <cell id="1045">
+                                <text id="1074">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[文件包名]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="1046">
+                                <text-data id="1088">
+                                    <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.appInfo.packageName</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="1047">
+                            <cell id="1048">
+                                <text id="1075">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[证书签名]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="1049">
+                                <text-data id="1089">
+                                    <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.appInfo.signature</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="1050">
+                            <cell id="1051">
+                                <text id="1076">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[证书串号]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="1052">
+                                <text-data id="1090">
+                                    <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.appInfo.certNum</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="1053">
+                            <cell id="1054">
+                                <text id="1077">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[证书版本]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="1055">
+                                <text-data id="1091">
+                                    <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.appInfo.certVersion</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="1056">
+                            <cell id="1057">
+                                <text id="1073">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[证书公钥MD5]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="1058">
+                                <text-data id="1092">
+                                    <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.appInfo.certMD5</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="1059">
+                            <cell id="1060">
+                                <text id="1078">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[证书公钥SHA1]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="1061">
+                                <text-data id="1093">
+                                    <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.appInfo.certSHA1</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="1062">
+                            <cell id="1063">
+                                <text id="1079">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[是否加固]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="1064">
+                                <text-data id="1094">
+                                    <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.appInfo.isStrong</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                        <row id="1065">
+                            <cell id="1066">
+                                <text id="1080">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[加固类型]]></text-property>
+                                </text>
+                            </cell>
+                            <cell id="1067">
+                                <text-data id="1095">
+                                    <expression name="valueExpr">JSON.parse(params["data"].value).dataDetail.step1.appInfo.strongCate</expression>
+                                    <property name="contentType">html</property>
+                                </text-data>
+                            </cell>
+                        </row>
+                    </grid>
+                </cell>
+            </row>
+        </grid>
+        <text id="1224">
+            <property name="fontSize">14pt</property>
+            <property name="marginTop">10px</property>
+            <property name="marginBottom">10px</property>
+            <property name="textAlign">center</property>
+            <property name="contentType">html</property>
+            <text-property name="content"><![CDATA[APP安全评测结果汇总]]></text-property>
+        </text>
+        <grid id="1229">
+            <column id="1230"/>
+            <row id="1231">
+                <cell id="1232">
+                    <property name="textAlign">center</property>
+                    <table id="1100">
+                        <property name="marginTop">0px</property>
+                        <property name="textAlign">left</property>
+                        <property name="width">95%</property>
+                        <property name="dataSet">appTestResultDataSet</property>
+                        <list-property name="paramBindings">
+                            <structure>
+                                <property name="paramName">testResultData</property>
+                                <simple-property-list name="expression">
+                                    <value type="javascript">JSON.parse(params["data"].value).dataDetail.step1.appTestResult</value>
+                                </simple-property-list>
+                            </structure>
+                        </list-property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">num</property>
+                                <text-property name="displayName">num</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["num"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">patternNum</property>
+                                <text-property name="displayName">patternNum</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["patternNum"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">patternName</property>
+                                <text-property name="displayName">patternName</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["patternName"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">riskLevel</property>
+                                <text-property name="displayName">riskLevel</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["riskLevel"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <column id="1116">
+                            <property name="style">borderStyle</property>
+                            <property name="textAlign">center</property>
+                        </column>
+                        <column id="1117">
+                            <property name="style">borderStyle</property>
+                        </column>
+                        <column id="1118">
+                            <property name="style">borderStyle</property>
+                            <property name="width">35%</property>
+                        </column>
+                        <column id="1119">
+                            <property name="style">borderStyle</property>
+                        </column>
+                        <header>
+                            <row id="1101">
+                                <property name="textAlign">center</property>
+                                <cell id="1102">
+                                    <text id="1120">
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[序号]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="1103">
+                                    <text id="1121">
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[特征库编号]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="1104">
+                                    <text id="1122">
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[检测项名称]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="1105">
+                                    <text id="1123">
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[危险等级]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="1106">
+                                <property name="textAlign">center</property>
+                                <cell id="1107">
+                                    <data id="1125">
+                                        <property name="resultSetColumn">num</property>
+                                    </data>
+                                </cell>
+                                <cell id="1108">
+                                    <data id="1127">
+                                        <property name="resultSetColumn">patternNum</property>
+                                    </data>
+                                </cell>
+                                <cell id="1109">
+                                    <data id="1126">
+                                        <property name="resultSetColumn">patternName</property>
+                                    </data>
+                                </cell>
+                                <cell id="1110">
+                                    <data id="1128">
+                                        <property name="resultSetColumn">riskLevel</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+        <table name="vulnerabilityTable" id="1130">
+            <property name="dataSet">sectionDataSet</property>
+            <list-property name="paramBindings">
+                <structure>
+                    <property name="paramName">sectionData</property>
+                    <simple-property-list name="expression">
+                        <value type="javascript">JSON.parse(params["data"].value).dataDetail.step2</value>
+                    </simple-property-list>
+                </structure>
+            </list-property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">rowData</property>
+                    <text-property name="displayName" key="rowData">rowData</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["rowData"]</expression>
+                    <property name="dataType">javaObject</property>
+                </structure>
+            </list-property>
+            <column id="1140"/>
+            <detail>
+                <row id="1134">
+                    <cell id="1135">
+                        <text-data id="1159">
+                            <property name="fontFamily">"Microsoft YaHei"</property>
+                            <property name="fontSize">14pt</property>
+                            <property name="fontWeight">normal</property>
+                            <property name="marginTop">20px</property>
+                            <expression name="valueExpr">1 + "." + 1 + "." + (row.__rownum+1) + "  " + row["rowData"].vulnerabilityName</expression>
+                            <property name="contentType">html</property>
+                        </text-data>
+                        <text-data id="1160">
+                            <property name="fontSize">13pt</property>
+                            <property name="marginTop">10px</property>
+                            <property name="marginBottom">10px</property>
+                            <expression name="valueExpr">1 + "." + 1 + "." + (row.__rownum+1) + "." + 1 + " " + "漏洞基本信息"</expression>
+                            <property name="contentType">html</property>
+                        </text-data>
+                        <grid id="1233">
+                            <property name="marginBottom">0pt</property>
+                            <column id="1234"/>
+                            <row id="1235">
+                                <cell id="1236">
+                                    <property name="paddingBottom">5pt</property>
+                                    <property name="textAlign">center</property>
+                                    <grid id="1142">
+                                        <property name="marginBottom">0px</property>
+                                        <property name="textAlign">left</property>
+                                        <property name="width">95%</property>
+                                        <column id="1143">
+                                            <property name="style">borderStyle</property>
+                                            <property name="width">18%</property>
+                                        </column>
+                                        <column id="1144">
+                                            <property name="style">borderStyle</property>
+                                        </column>
+                                        <row id="1145">
+                                            <cell id="1146">
+                                                <text id="1173">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[漏洞编号]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1147">
+                                                <text-data id="1208">
+                                                    <expression name="valueExpr">row["rowData"].vulnerabilityInfo.vulnerabilityNum</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1148">
+                                            <cell id="1149">
+                                                <text id="1174">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[漏洞名称]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1150">
+                                                <text-data id="1209">
+                                                    <expression name="valueExpr">row["rowData"].vulnerabilityInfo.vulnerabilityName</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1151">
+                                            <cell id="1152">
+                                                <text id="1175">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[漏洞类型]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1153">
+                                                <text-data id="1210">
+                                                    <expression name="valueExpr">row["rowData"].vulnerabilityInfo.vulnerabilityCate</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1161">
+                                            <cell id="1162">
+                                                <text id="1176">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[漏洞描述]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1163">
+                                                <text-data id="1211">
+                                                    <expression name="valueExpr">row["rowData"].vulnerabilityInfo.vulnerabilityDescri</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1164">
+                                            <cell id="1165">
+                                                <text id="1177">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[漏洞危害]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1166">
+                                                <text-data id="1212">
+                                                    <expression name="valueExpr">row["rowData"].vulnerabilityInfo.vulnerabilityHarm</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1167">
+                                            <cell id="1168">
+                                                <text id="1178">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[漏洞危害等级]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1169">
+                                                <text-data id="1213">
+                                                    <expression name="valueExpr">row["rowData"].vulnerabilityInfo.harmLevel</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1170">
+                                            <cell id="1171">
+                                                <text id="1179">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[所属系统名称]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1172">
+                                                <text-data id="1214">
+                                                    <expression name="valueExpr">row["rowData"].vulnerabilityInfo.systemName</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                    </grid>
+                                </cell>
+                            </row>
+                        </grid>
+                        <text-data id="1180">
+                            <property name="fontSize">13pt</property>
+                            <property name="marginTop">10px</property>
+                            <property name="marginBottom">10px</property>
+                            <expression name="valueExpr">1 + "." + 1 + "." + (row.__rownum+1) + "." + 2 + " " + "漏洞检测"</expression>
+                            <property name="contentType">html</property>
+                        </text-data>
+                        <grid id="1237">
+                            <column id="1238"/>
+                            <row id="1239">
+                                <cell id="1240">
+                                    <property name="textAlign">center</property>
+                                    <table id="1191">
+                                        <property name="marginBottom">10px</property>
+                                        <property name="textAlign">left</property>
+                                        <property name="dataSet">stepsDataSet</property>
+                                        <list-property name="paramBindings">
+                                            <structure>
+                                                <property name="paramName">stepData</property>
+                                                <simple-property-list name="expression">
+                                                    <value type="javascript">row["rowData"].vulnerabilityCheck</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
+                                        <list-property name="boundDataColumns">
+                                            <structure>
+                                                <property name="name">rowData</property>
+                                                <text-property name="displayName" key="rowData">rowData</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["rowData"]</expression>
+                                                <property name="dataType">javaObject</property>
+                                            </structure>
+                                        </list-property>
+                                        <column id="1201">
+                                            <property name="width">5%</property>
+                                        </column>
+                                        <column id="1202"/>
+                                        <header>
+                                            <row id="1192">
+                                                <cell id="1193">
+                                                    <text id="1203">
+                                                        <property name="textAlign">left</property>
+                                                        <property name="contentType">html</property>
+                                                        <text-property name="content"><![CDATA[序号]]></text-property>
+                                                    </text>
+                                                </cell>
+                                                <cell id="1194">
+                                                    <text id="1204">
+                                                        <property name="textAlign">left</property>
+                                                        <property name="contentType">html</property>
+                                                        <text-property name="content"><![CDATA[文件名]]></text-property>
+                                                    </text>
+                                                </cell>
+                                            </row>
+                                        </header>
+                                        <detail>
+                                            <row id="1195">
+                                                <cell id="1196">
+                                                    <text-data id="1215">
+                                                        <expression name="valueExpr">row["rowData"].Num</expression>
+                                                        <property name="contentType">html</property>
+                                                    </text-data>
+                                                </cell>
+                                                <cell id="1197">
+                                                    <text-data id="1216">
+                                                        <expression name="valueExpr">row["rowData"].fileName</expression>
+                                                        <property name="contentType">html</property>
+                                                    </text-data>
+                                                </cell>
+                                            </row>
+                                        </detail>
+                                    </table>
+                                </cell>
+                            </row>
+                        </grid>
+                        <text-data id="1206">
+                            <property name="fontSize">13pt</property>
+                            <property name="marginTop">10px</property>
+                            <property name="marginBottom">10px</property>
+                            <expression name="valueExpr">1 + "." + 1 + "." + (row.__rownum+1) + "." + 3 + " " + "漏洞修复建议"</expression>
+                            <property name="contentType">html</property>
+                        </text-data>
+                        <text-data id="1207">
+                            <expression name="valueExpr">row["rowData"].suggestion</expression>
+                            <property name="contentType">html</property>
+                        </text-data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+    <property name="pageVariables">
+        <variable-element name="section">
+            <expression name="value" type="javascript">1</expression>
+            <property name="type">report</property>
+        </variable-element>
+    </property>
+</report>

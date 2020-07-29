@@ -1,0 +1,1411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <parameters>
+        <scalar-parameter name="data" id="1464">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">)</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="JSON" id="46"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="phishingAppDataSet" id="1429">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">apkInfo</property>
+                    <property name="dataType">javaObject</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">apkInfo</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">phishingApps</property>
+                    <property name="dataType">javaObject</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">apkInfo</property>
+                        <property name="dataType">javaObject</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">JSON</property>
+            <method name="open"><![CDATA[// This will track your current section
+phishingCount = 0;  
+
+// Calculate the total rows we will have (输入的对象数组的长度) 
+phishingTotalCount = inputParams["phishingApps"].length;]]></method>
+            <method name="fetch"><![CDATA[//循环取出输入的对象数组的每一个对象 放到一个列名为rowData的行里（这个行存储的数据类型是object）
+if(phishingCount < phishingTotalCount){  
+    row["apkInfo"] = inputParams["phishingApps"][phishingCount];
+    phishingCount++;  
+    return true;  
+}  
+return false;  ]]></method>
+        </script-data-set>
+        <script-data-set name="channelDistributeDataSet" id="1430">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">channelInfo</property>
+                    <property name="dataType">javaObject</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">channelInfo</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">channelDistribution</property>
+                    <property name="dataType">javaObject</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">channelInfo</property>
+                        <property name="dataType">javaObject</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">JSON</property>
+            <method name="open"><![CDATA[// This will track your current section
+channelCount = 0;  
+
+// Calculate the total rows we will have (输入的对象数组的长度) 
+channelTotalCount = inputParams["channelDistribution"].length;]]></method>
+            <method name="fetch"><![CDATA[//循环取出输入的对象数组的每一个对象 放到一个列名为rowData的行里（这个行存储的数据类型是object）
+if(channelCount < channelTotalCount){  
+    row["channelInfo"] = inputParams["channelDistribution"][channelCount];
+    channelCount++;  
+    return true;  
+}  
+return false;  ]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="borderStyle" id="1218">
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">thin</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">thin</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">thin</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">thin</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">a4</property>
+            <property name="orientation">auto</property>
+            <property name="leftMargin">0.5in</property>
+            <property name="bottomMargin">0.25in</property>
+            <property name="rightMargin">0.5in</property>
+            <page-footer>
+                <auto-text id="1553">
+                    <property name="paddingBottom">0pt</property>
+                    <property name="textAlign">center</property>
+                    <property name="type">page-number</property>
+                </auto-text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="1570">
+            <property name="height">14.4375in</property>
+            <column id="1571"/>
+            <row id="1572">
+                <property name="height">14.4375in</property>
+                <cell id="1573">
+                    <label id="1863">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1871">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1870">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1869">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1868">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1867">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1866">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <text-data id="1021">
+                        <property name="fontFamily">"Microsoft YaHei"</property>
+                        <property name="fontSize">x-large</property>
+                        <property name="textAlign">center</property>
+                        <expression name="valueExpr">JSON.parse(params["data"].value).category</expression>
+                        <property name="contentType">html</property>
+                    </text-data>
+                    <label id="1876">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1874">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <text-data id="1244">
+                        <property name="fontFamily">serif</property>
+                        <property name="fontSize">14pt</property>
+                        <property name="marginTop">30px</property>
+                        <property name="textAlign">center</property>
+                        <structure name="toc"/>
+                        <expression name="valueExpr">"报告日期：" + JSON.parse(params["data"].value).reportTime</expression>
+                        <property name="contentType">html</property>
+                    </text-data>
+                    <label id="1872">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1873">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1875">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1877">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1878">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1879">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1880">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1881">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1882">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1883">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1885">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1886">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1887">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1888">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1889">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1890">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1891">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1892">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1893">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1894">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1895">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1899">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1900">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1901">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1902">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1903">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1904">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1905">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1906">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1907">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1908">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1909">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1910">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1911">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1912">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1913">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1914">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1915">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1916">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1917">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1918">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1919">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1920">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1921">
+                        <property name="textAlign">left</property>
+                    </label>
+                </cell>
+            </row>
+        </grid>
+        <grid id="1925">
+            <property name="height">14.78125in</property>
+            <column id="1926"/>
+            <row id="1927">
+                <property name="height">14.78125in</property>
+                <cell id="1928">
+                    <text id="1929">
+                        <property name="fontSize">16pt</property>
+                        <property name="textAlign">center</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[目 录]]></text-property>
+                    </text>
+                    <text id="1931">
+                        <property name="textAlign">center</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[TOC]]></text-property>
+                    </text>
+                    <label id="1932">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1933">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1934">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1935">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1936">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1937">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1938">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1939">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1940">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1941">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1942">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1943">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1944">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1945">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1946">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1947">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1948">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1949">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1950">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1951">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1952">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1953">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1954">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1955">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1956">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1957">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1958">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1959">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1960">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1961">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1962">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1963">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1964">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1965">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1966">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1967">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1968">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1969">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1970">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1971">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1972">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1973">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1974">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1975">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1976">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1977">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1978">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1979">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1980">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1981">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1982">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1983">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1984">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1985">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1986">
+                        <property name="textAlign">left</property>
+                    </label>
+                    <label id="1987">
+                        <property name="textAlign">left</property>
+                    </label>
+                </cell>
+            </row>
+        </grid>
+        <text id="1245">
+            <property name="marginTop">20pt</property>
+            <property name="contentType">html</property>
+            <text-property name="content"><![CDATA[<H2>
+一、总述
+</H2>]]></text-property>
+        </text>
+        <text-data id="1246">
+            <property name="fontFamily">"Songti SC"</property>
+            <expression name="valueExpr">JSON.parse(params["data"].value).summary</expression>
+            <property name="contentType">auto</property>
+        </text-data>
+        <table id="1482">
+            <property name="style">borderStyle</property>
+            <property name="fontFamily">"Songti SC"</property>
+            <property name="marginTop">5pt</property>
+            <property name="textAlign">justify</property>
+            <property name="display">block</property>
+            <property name="dataSet">phishingAppDataSet</property>
+            <list-property name="paramBindings">
+                <structure>
+                    <property name="paramName">phishingApps</property>
+                    <simple-property-list name="expression">
+                        <value type="javascript">JSON.parse(params["data"].value).phishingApps</value>
+                    </simple-property-list>
+                </structure>
+            </list-property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">apkInfo</property>
+                    <text-property name="displayName">apkInfo</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["apkInfo"]</expression>
+                    <property name="dataType">javaObject</property>
+                </structure>
+            </list-property>
+            <column id="1513">
+                <property name="style">borderStyle</property>
+                <property name="width">5%</property>
+            </column>
+            <column id="1491">
+                <property name="style">borderStyle</property>
+                <property name="width">20%</property>
+            </column>
+            <column id="1501">
+                <property name="style">borderStyle</property>
+                <property name="width">30%</property>
+            </column>
+            <column id="1498">
+                <property name="style">borderStyle</property>
+            </column>
+            <header>
+                <row id="1494">
+                    <property name="style">borderStyle</property>
+                    <cell id="1511">
+                        <text id="1516">
+                            <property name="textAlign">center</property>
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[序号]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="1495">
+                        <text id="1502">
+                            <property name="textAlign">center</property>
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[应用名称]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="1499">
+                        <text id="1503">
+                            <property name="textAlign">center</property>
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[包名]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="1496">
+                        <text id="1504">
+                            <property name="textAlign">center</property>
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[证书Hash]]></text-property>
+                        </text>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="1486">
+                    <property name="style">borderStyle</property>
+                    <cell id="1512">
+                        <text-data id="1518">
+                            <property name="textAlign">center</property>
+                            <expression name="valueExpr">row.__rownum+1</expression>
+                            <property name="contentType">auto</property>
+                        </text-data>
+                    </cell>
+                    <cell id="1487">
+                        <text-data id="1505">
+                            <property name="textAlign">center</property>
+                            <expression name="valueExpr">row["apkInfo"].diffInfo.phishingApp.appName</expression>
+                            <property name="contentType">auto</property>
+                        </text-data>
+                    </cell>
+                    <cell id="1500">
+                        <text-data id="1506">
+                            <property name="textAlign">center</property>
+                            <expression name="valueExpr">row["apkInfo"].diffInfo.phishingApp.packageName</expression>
+                            <property name="contentType">auto</property>
+                        </text-data>
+                    </cell>
+                    <cell id="1497">
+                        <text-data id="1507">
+                            <property name="textAlign">center</property>
+                            <expression name="valueExpr">row["apkInfo"].diffInfo.phishingApp.cerHash</expression>
+                            <property name="contentType">auto</property>
+                        </text-data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+        <text id="1247">
+            <property name="marginTop">20pt</property>
+            <property name="contentType">html</property>
+            <text-property name="content"><![CDATA[<H2>
+二、仿冒应用
+</H2>]]></text-property>
+        </text>
+        <table name="phishingAppsTable" id="1130">
+            <property name="dataSet">phishingAppDataSet</property>
+            <list-property name="paramBindings">
+                <structure>
+                    <property name="paramName">phishingApps</property>
+                    <simple-property-list name="expression">
+                        <value type="javascript">JSON.parse(params["data"].value).phishingApps</value>
+                    </simple-property-list>
+                </structure>
+            </list-property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">apkInfo</property>
+                    <text-property name="displayName">apkInfo</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["apkInfo"]</expression>
+                    <property name="dataType">javaObject</property>
+                </structure>
+            </list-property>
+            <column id="1140"/>
+            <detail>
+                <row id="1134">
+                    <cell id="1135">
+                        <property name="fontFamily">"Songti SC"</property>
+                        <text-data id="1159">
+                            <property name="fontFamily">"Songti SC"</property>
+                            <property name="fontSize">14pt</property>
+                            <property name="fontWeight">normal</property>
+                            <property name="marginTop">20px</property>
+                            <expression name="valueExpr">(row.__rownum+1) + ".  " + row["apkInfo"].appName</expression>
+                            <property name="contentType">html</property>
+                        </text-data>
+                        <text id="1259">
+                            <property name="contentType">html</property>
+                            <text-property name="content"><![CDATA[<H3>(1)仿冒应用基本信息</H3>]]></text-property>
+                        </text>
+                        <grid id="1454">
+                            <property name="fontFamily">fantasy</property>
+                            <property name="textAlign">center</property>
+                            <column id="1455"/>
+                            <row id="1456">
+                                <cell id="1457">
+                                    <property name="paddingBottom">2pt</property>
+                                    <grid id="1142">
+                                        <property name="style">borderStyle</property>
+                                        <property name="fontFamily">"Songti SC"</property>
+                                        <property name="marginBottom">0px</property>
+                                        <property name="textAlign">center</property>
+                                        <property name="width">95%</property>
+                                        <column id="1143">
+                                            <property name="style">borderStyle</property>
+                                            <property name="width">18%</property>
+                                        </column>
+                                        <column id="1144">
+                                            <property name="style">borderStyle</property>
+                                        </column>
+                                        <row id="1148">
+                                            <cell id="1149">
+                                                <text id="1174">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[判定结果]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1150">
+                                                <text-data id="1209">
+                                                    <expression name="valueExpr">row["apkInfo"].basicInfo.result</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1151">
+                                            <cell id="1152">
+                                                <text id="1175">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[应用名称]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1153">
+                                                <text-data id="1210">
+                                                    <expression name="valueExpr">row["apkInfo"].basicInfo.appName</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1475">
+                                            <cell id="1476">
+                                                <text id="1478">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[MD5]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1477">
+                                                <text-data id="1479">
+                                                    <expression name="valueExpr">row["apkInfo"].basicInfo.MD5</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1472">
+                                            <cell id="1473">
+                                                <text id="1480">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[SHA1]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1474">
+                                                <text-data id="1481">
+                                                    <expression name="valueExpr">row["apkInfo"].basicInfo.SHA1</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1161">
+                                            <cell id="1162">
+                                                <text id="1176">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[SHA-256]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1163">
+                                                <text-data id="1211">
+                                                    <expression name="valueExpr">row["apkInfo"].basicInfo.SHA256</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1164">
+                                            <cell id="1165">
+                                                <text id="1177">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[文件大小]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1166">
+                                                <text-data id="1212">
+                                                    <expression name="valueExpr">row["apkInfo"].basicInfo.fileSize</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1167">
+                                            <cell id="1168">
+                                                <text id="1178">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[版本]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1169">
+                                                <text-data id="1213">
+                                                    <expression name="valueExpr">row["apkInfo"].basicInfo.version</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1170">
+                                            <cell id="1171">
+                                                <text id="1179">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[是否加固]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1172">
+                                                <text-data id="1214">
+                                                    <expression name="valueExpr">row["apkInfo"].basicInfo.isJiaGu</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1254">
+                                            <cell id="1255">
+                                                <text id="1257">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[加固类型]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1256">
+                                                <text-data id="1258">
+                                                    <expression name="valueExpr">row["apkInfo"].basicInfo.jiaGuCategory</expression>
+                                                    <property name="contentType">html</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                    </grid>
+                                </cell>
+                            </row>
+                        </grid>
+                        <text id="1260">
+                            <property name="marginTop">5pt</property>
+                            <property name="contentType">html</property>
+                            <text-property name="content"><![CDATA[<H3>(2)仿冒应用与正版应用对比</H3>]]></text-property>
+                        </text>
+                        <grid id="1458">
+                            <property name="textAlign">center</property>
+                            <column id="1459"/>
+                            <row id="1460">
+                                <cell id="1461">
+                                    <property name="paddingLeft">15pt</property>
+                                    <property name="paddingRight">15pt</property>
+                                    <grid id="1306">
+                                        <property name="fontFamily">"Songti SC"</property>
+                                        <column id="1307">
+                                            <property name="style">borderStyle</property>
+                                            <property name="width">15%</property>
+                                        </column>
+                                        <column id="1308">
+                                            <property name="style">borderStyle</property>
+                                        </column>
+                                        <column id="1309">
+                                            <property name="style">borderStyle</property>
+                                        </column>
+                                        <column id="1310">
+                                            <property name="style">borderStyle</property>
+                                            <property name="width">15%</property>
+                                        </column>
+                                        <row id="1311">
+                                            <cell id="1312">
+                                                <text id="1366">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[检测项]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1313">
+                                                <text id="1367">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[仿冒应用]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1314">
+                                                <text id="1368">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[正版应用]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1315">
+                                                <text id="1369">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[相似度]]></text-property>
+                                                </text>
+                                            </cell>
+                                        </row>
+                                        <row id="1316">
+                                            <cell id="1317">
+                                                <text id="1370">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[图标]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1318">
+                                                <image id="1466">
+                                                    <property name="height">2cm</property>
+                                                    <property name="width">2cm</property>
+                                                    <property name="source">expr</property>
+                                                    <expression name="valueExpr">org.apache.commons.codec.binary.Base64.decodeBase64(row["apkInfo"].diffInfo.phishingApp.img)</expression>
+                                                </image>
+                                            </cell>
+                                            <cell id="1319">
+                                                <image id="1467">
+                                                    <property name="height">2cm</property>
+                                                    <property name="width">2cm</property>
+                                                    <property name="source">expr</property>
+                                                    <expression name="valueExpr">org.apache.commons.codec.binary.Base64.decodeBase64(row["apkInfo"].diffInfo.legalApp.img)</expression>
+                                                </image>
+                                            </cell>
+                                            <cell id="1320">
+                                                <text-data id="1437">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.similars.imgSimilar</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1321">
+                                            <cell id="1322">
+                                                <text id="1371">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[应用名称]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1323">
+                                                <text-data id="1382">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.phishingApp.appName</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1324">
+                                                <text-data id="1391">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.legalApp.appName</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1325">
+                                                <text-data id="1439">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.similars.appNameSimilar</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1326">
+                                            <cell id="1327">
+                                                <text id="1372">
+                                                    <property name="contentType">html</property>
+                                                    <text-property name="content"><![CDATA[包名]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1328">
+                                                <text-data id="1383">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.phishingApp.packageName</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1329">
+                                                <text-data id="1392">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.legalApp.packageName</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1330">
+                                                <text-data id="1441">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.similars.packageNameSimilar</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                        </row>
+                                        <row id="1331">
+                                            <cell id="1332">
+                                                <text id="1373">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[代码相似度]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1333">
+                                                <property name="colSpan">2</property>
+                                                <property name="rowSpan">1</property>
+                                                <text-data id="1399">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.similars.codeSimilar</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1509">
+                                                <text id="1510">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[--]]></text-property>
+                                                </text>
+                                            </cell>
+                                        </row>
+                                        <row id="1336">
+                                            <cell id="1337">
+                                                <text id="1374">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[版本]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1338">
+                                                <text-data id="1384">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.phishingApp.version</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1339">
+                                                <text-data id="1393">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.legalApp.version</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1340">
+                                                <text id="1442">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[--]]></text-property>
+                                                </text>
+                                            </cell>
+                                        </row>
+                                        <row id="1341">
+                                            <cell id="1342">
+                                                <text id="1375">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[新增敏感权限]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1343">
+                                                <property name="colSpan">2</property>
+                                                <property name="rowSpan">1</property>
+                                                <text-data id="1385">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.phishingApp.newPriority</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1345">
+                                                <text id="1443">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[--]]></text-property>
+                                                </text>
+                                            </cell>
+                                        </row>
+                                        <row id="1346">
+                                            <cell id="1347">
+                                                <text id="1376">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[证书Hash]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1348">
+                                                <text-data id="1386">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.phishingApp.cerHash</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1349">
+                                                <text-data id="1395">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.legalApp.cerHash</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1350">
+                                                <text id="1444">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[--]]></text-property>
+                                                </text>
+                                            </cell>
+                                        </row>
+                                        <row id="1351">
+                                            <cell id="1352">
+                                                <text id="1377">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[证书持有者]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1353">
+                                                <text-data id="1387">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.phishingApp.cerOwner</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1354">
+                                                <text-data id="1396">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.legalApp.cerOwner</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1355">
+                                                <text id="1445">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[--]]></text-property>
+                                                </text>
+                                            </cell>
+                                        </row>
+                                        <row id="1356">
+                                            <cell id="1357">
+                                                <text id="1378">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[证书认证时间]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1358">
+                                                <text-data id="1388">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.phishingApp.certifiedTime</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1359">
+                                                <text-data id="1397">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.legalApp.certifiedTime</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1360">
+                                                <text id="1446">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[--]]></text-property>
+                                                </text>
+                                            </cell>
+                                        </row>
+                                        <row id="1361">
+                                            <cell id="1362">
+                                                <text id="1380">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[证书串号]]></text-property>
+                                                </text>
+                                            </cell>
+                                            <cell id="1363">
+                                                <text-data id="1389">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.phishingApp.cerSerialNum</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1364">
+                                                <text-data id="1398">
+                                                    <expression name="valueExpr">row["apkInfo"].diffInfo.legalApp.cerSerialNum</expression>
+                                                    <property name="contentType">auto</property>
+                                                </text-data>
+                                            </cell>
+                                            <cell id="1365">
+                                                <text id="1447">
+                                                    <property name="contentType">auto</property>
+                                                    <text-property name="content"><![CDATA[--]]></text-property>
+                                                </text>
+                                            </cell>
+                                        </row>
+                                    </grid>
+                                </cell>
+                            </row>
+                        </grid>
+                        <text id="1435">
+                            <property name="marginTop">5pt</property>
+                            <property name="contentType">html</property>
+                            <text-property name="content"><![CDATA[<H3>(3)仿冒应用渠道分布</H3>]]></text-property>
+                        </text>
+                        <grid id="1468">
+                            <column id="1469"/>
+                            <row id="1470">
+                                <cell id="1471">
+                                    <property name="paddingLeft">15pt</property>
+                                    <property name="paddingRight">15pt</property>
+                                    <table name="channelDistributionTable" id="1400">
+                                        <property name="fontFamily">"Songti SC"</property>
+                                        <property name="textAlign">center</property>
+                                        <property name="dataSet">channelDistributeDataSet</property>
+                                        <list-property name="paramBindings">
+                                            <structure>
+                                                <property name="paramName">channelDistribution</property>
+                                                <simple-property-list name="expression">
+                                                    <value type="javascript">row["apkInfo"].channelDistribution.phishingChannel</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
+                                        <list-property name="boundDataColumns">
+                                            <structure>
+                                                <property name="name">channelInfo</property>
+                                                <text-property name="displayName">channelInfo</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["channelInfo"]</expression>
+                                                <property name="dataType">javaObject</property>
+                                            </structure>
+                                        </list-property>
+                                        <column id="1419">
+                                            <property name="style">borderStyle</property>
+                                            <property name="width">5%</property>
+                                        </column>
+                                        <column id="1420">
+                                            <property name="style">borderStyle</property>
+                                        </column>
+                                        <column id="1421">
+                                            <property name="style">borderStyle</property>
+                                        </column>
+                                        <column id="1422">
+                                            <property name="style">borderStyle</property>
+                                            <property name="width">35%</property>
+                                        </column>
+                                        <column id="1423">
+                                            <property name="style">borderStyle</property>
+                                            <property name="width">35%</property>
+                                        </column>
+                                        <header>
+                                            <row id="1401">
+                                                <cell id="1402">
+                                                    <text id="1424">
+                                                        <property name="contentType">auto</property>
+                                                        <text-property name="content"><![CDATA[序号]]></text-property>
+                                                    </text>
+                                                </cell>
+                                                <cell id="1403">
+                                                    <text id="1425">
+                                                        <property name="contentType">auto</property>
+                                                        <text-property name="content"><![CDATA[应用商店名称]]></text-property>
+                                                    </text>
+                                                </cell>
+                                                <cell id="1404">
+                                                    <text id="1426">
+                                                        <property name="contentType">auto</property>
+                                                        <text-property name="content"><![CDATA[爬取时间]]></text-property>
+                                                    </text>
+                                                </cell>
+                                                <cell id="1405">
+                                                    <text id="1427">
+                                                        <property name="contentType">auto</property>
+                                                        <text-property name="content"><![CDATA[详情页]]></text-property>
+                                                    </text>
+                                                </cell>
+                                                <cell id="1406">
+                                                    <text id="1428">
+                                                        <property name="contentType">auto</property>
+                                                        <text-property name="content"><![CDATA[下载链接]]></text-property>
+                                                    </text>
+                                                </cell>
+                                            </row>
+                                        </header>
+                                        <detail>
+                                            <row id="1407">
+                                                <property name="textAlign">center</property>
+                                                <cell id="1408">
+                                                    <text-data id="1436">
+                                                        <property name="textAlign">center</property>
+                                                        <expression name="valueExpr">row.__rownum+1</expression>
+                                                        <property name="contentType">auto</property>
+                                                    </text-data>
+                                                </cell>
+                                                <cell id="1409">
+                                                    <text-data id="1431">
+                                                        <expression name="valueExpr">row["channelInfo"].appStore</expression>
+                                                        <property name="contentType">auto</property>
+                                                    </text-data>
+                                                </cell>
+                                                <cell id="1410">
+                                                    <text-data id="1432">
+                                                        <expression name="valueExpr">row["channelInfo"].crawlerTime</expression>
+                                                        <property name="contentType">auto</property>
+                                                    </text-data>
+                                                </cell>
+                                                <cell id="1411">
+                                                    <text-data id="1433">
+                                                        <expression name="valueExpr">row["channelInfo"].detailUrl</expression>
+                                                        <property name="contentType">auto</property>
+                                                    </text-data>
+                                                </cell>
+                                                <cell id="1412">
+                                                    <text-data id="1434">
+                                                        <expression name="valueExpr">row["channelInfo"].downloadUrl</expression>
+                                                        <property name="contentType">auto</property>
+                                                    </text-data>
+                                                </cell>
+                                            </row>
+                                        </detail>
+                                    </table>
+                                </cell>
+                            </row>
+                        </grid>
+                        <text id="1519">
+                            <property name="marginTop">5pt</property>
+                            <property name="contentType">html</property>
+                            <text-property name="content"><![CDATA[<H3>(4)正版应用渠道分布</H3>]]></text-property>
+                        </text>
+                        <grid id="1520">
+                            <column id="1521"/>
+                            <row id="1522">
+                                <cell id="1523">
+                                    <property name="paddingLeft">15pt</property>
+                                    <property name="paddingRight">15pt</property>
+                                    <table name="channelDistributionTable1" id="1524">
+                                        <property name="fontFamily">"Songti SC"</property>
+                                        <property name="textAlign">center</property>
+                                        <property name="dataSet">channelDistributeDataSet</property>
+                                        <list-property name="paramBindings">
+                                            <structure>
+                                                <property name="paramName">channelDistribution</property>
+                                                <simple-property-list name="expression">
+                                                    <value type="javascript">row["apkInfo"].channelDistribution.legalChannel</value>
+                                                </simple-property-list>
+                                            </structure>
+                                        </list-property>
+                                        <list-property name="boundDataColumns">
+                                            <structure>
+                                                <property name="name">channelInfo</property>
+                                                <text-property name="displayName">channelInfo</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["channelInfo"]</expression>
+                                                <property name="dataType">javaObject</property>
+                                            </structure>
+                                        </list-property>
+                                        <column id="1547">
+                                            <property name="style">borderStyle</property>
+                                            <property name="width">5%</property>
+                                        </column>
+                                        <column id="1548">
+                                            <property name="style">borderStyle</property>
+                                        </column>
+                                        <column id="1549">
+                                            <property name="style">borderStyle</property>
+                                        </column>
+                                        <column id="1550">
+                                            <property name="style">borderStyle</property>
+                                            <property name="width">35%</property>
+                                        </column>
+                                        <column id="1551">
+                                            <property name="style">borderStyle</property>
+                                            <property name="width">35%</property>
+                                        </column>
+                                        <header>
+                                            <row id="1525">
+                                                <cell id="1526">
+                                                    <text id="1527">
+                                                        <property name="contentType">auto</property>
+                                                        <text-property name="content"><![CDATA[序号]]></text-property>
+                                                    </text>
+                                                </cell>
+                                                <cell id="1528">
+                                                    <text id="1529">
+                                                        <property name="contentType">auto</property>
+                                                        <text-property name="content"><![CDATA[应用商店名称]]></text-property>
+                                                    </text>
+                                                </cell>
+                                                <cell id="1530">
+                                                    <text id="1531">
+                                                        <property name="contentType">auto</property>
+                                                        <text-property name="content"><![CDATA[爬取时间]]></text-property>
+                                                    </text>
+                                                </cell>
+                                                <cell id="1532">
+                                                    <text id="1533">
+                                                        <property name="contentType">auto</property>
+                                                        <text-property name="content"><![CDATA[详情页]]></text-property>
+                                                    </text>
+                                                </cell>
+                                                <cell id="1534">
+                                                    <text id="1535">
+                                                        <property name="contentType">auto</property>
+                                                        <text-property name="content"><![CDATA[下载链接]]></text-property>
+                                                    </text>
+                                                </cell>
+                                            </row>
+                                        </header>
+                                        <detail>
+                                            <row id="1536">
+                                                <property name="textAlign">center</property>
+                                                <cell id="1537">
+                                                    <text-data id="1538">
+                                                        <property name="textAlign">center</property>
+                                                        <expression name="valueExpr">row.__rownum+1</expression>
+                                                        <property name="contentType">auto</property>
+                                                    </text-data>
+                                                </cell>
+                                                <cell id="1539">
+                                                    <text-data id="1540">
+                                                        <expression name="valueExpr">row["channelInfo"].appStore</expression>
+                                                        <property name="contentType">auto</property>
+                                                    </text-data>
+                                                </cell>
+                                                <cell id="1541">
+                                                    <text-data id="1542">
+                                                        <expression name="valueExpr">row["channelInfo"].crawlerTime</expression>
+                                                        <property name="contentType">auto</property>
+                                                    </text-data>
+                                                </cell>
+                                                <cell id="1543">
+                                                    <text-data id="1544">
+                                                        <expression name="valueExpr">row["channelInfo"].detailUrl</expression>
+                                                        <property name="contentType">auto</property>
+                                                    </text-data>
+                                                </cell>
+                                                <cell id="1545">
+                                                    <text-data id="1546">
+                                                        <expression name="valueExpr">row["channelInfo"].downloadUrl</expression>
+                                                        <property name="contentType">auto</property>
+                                                    </text-data>
+                                                </cell>
+                                            </row>
+                                        </detail>
+                                    </table>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+        <label id="1896">
+            <property name="textAlign">left</property>
+        </label>
+        <label id="1897">
+            <property name="textAlign">left</property>
+        </label>
+        <label id="1898">
+            <property name="textAlign">left</property>
+        </label>
+    </body>
+    <property name="pageVariables">
+        <variable-element name="section">
+            <expression name="value" type="javascript">1</expression>
+            <property name="type">report</property>
+        </variable-element>
+    </property>
+</report>
