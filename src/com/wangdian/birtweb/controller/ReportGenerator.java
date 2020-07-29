@@ -5,6 +5,9 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+
+import com.wangdian.birtweb.listener.EngineDataRequestListener;
+import okhttp3.OkHttpClient;
 import org.eclipse.birt.core.framework.Platform;
 import org.eclipse.birt.report.engine.api.DocxRenderOption;
 import org.eclipse.birt.report.engine.api.EngineConfig;
@@ -38,9 +41,19 @@ public class ReportGenerator {
                 content.add(str);
             }
             DataBuilder dataBuilder = new DataBuilder();
-            task.setParameterValue("data", dataBuilder.build(content));
-            task.validateParameters();
-            renderProcess("docx", task);
+            dataBuilder.build(content, new EngineDataRequestListener() {
+                @Override
+                public void onSuccess(String data) throws Exception {
+                    task.setParameterValue("data", data);
+                    task.validateParameters();
+                    renderProcess("docx", task);
+                }
+
+                @Override
+                public void onFailure() {
+                    System.out.println("Network Request Error!!!!");
+                }
+            });
 
         } catch (Exception e) {
             e.printStackTrace();

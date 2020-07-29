@@ -1,5 +1,8 @@
 package com.wangdian.birtweb.controller;
 
+import com.wangdian.birtweb.listener.EngineDataRequestListener;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +19,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Map.Entry;
+import io.reactivex.Observable;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author xiongying
@@ -24,6 +31,15 @@ public class DataBuilder {
     private static final String HOST = "http://sv2.asec.buptnsrc.com:9002";
     private static final String TOKEN_KEY = "testtest";
     private List<Double> codeSimilarity;
+    private Retrofit mRetrofit;
+
+    public DataBuilder() {
+        mRetrofit = new Retrofit.Builder()
+                .baseUrl(HOST)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
 
     public static void main(String[] args) throws IOException {
         List<String> testHashes = new ArrayList<>();
@@ -31,7 +47,19 @@ public class DataBuilder {
         DataBuilder dataBuilder = new DataBuilder();
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("json.txt"))) {
-            bw.write(dataBuilder.build(testHashes));
+            dataBuilder.build(testHashes, new EngineDataRequestListener() {
+                @Override
+                public void onSuccess(String data) throws Exception {
+                    bw.write(data);
+                }
+
+                @Override
+                public void onFailure() {
+                    System.out.println("Network Request Error!!!!");
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -87,7 +115,7 @@ public class DataBuilder {
         return strResult;
     }
 
-    String build(List<String> fileHashes) {
+    void build(List<String> fileHashes, EngineDataRequestListener listener) throws Exception {
         JSONObject data = new JSONObject();
         data.put("category", "待定");
         Calendar cal = Calendar.getInstance();
@@ -95,23 +123,57 @@ public class DataBuilder {
         data.put("reportTime", sdf.format(cal.getTime()));
         data.put("summary", "待定");
         JSONArray apps = new JSONArray();
+
+        Observable<JSONObject>[] requests = new Observable[fileHashes.size()];
+        int count = 0;
         for (String fileHash : fileHashes) {
-            try {
-                System.out.println("filehash = " + fileHash);
-                apps.put(buildOneApp(fileHash));
-            } catch (IOException e) {
-                System.err.print("获取信息失败：" + fileHash);
-                e.printStackTrace();
-            }
+            Observable<JSONObject> request = buildOneAppHttpRequest(fileHash);
+            requests[count] = request;
         }
-        data.put("phishingApps", apps);
-        return data.toString();
+        Observable.mergeArray(requests).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable disposable) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject jsonObject) {
+                try {
+                    data.put("phishingApps", parseResult(jsonObject));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                if (listener != null) {
+                    listener.onFailure();
+                }
+            }
+
+            @Override
+            public void onComplete() {
+                try {
+                    if (listener != null) {
+                        listener.onSuccess(data.toString());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
-    private JSONObject buildOneApp(String fileHash) throws IOException {
-        final String phishingResultApi = "/getPhishingResultByFileHash";
-        String url = HOST + phishingResultApi + "?fileHash=" + fileHash;
-        JSONObject response = readJsonFromUrl(url, "POST").getJSONObject("info");
+    private Observable<JSONObject> buildOneAppHttpRequest(String fileHash) throws IOException {
+        if (mRetrofit == null) {
+            return null;
+        }
+        return mRetrofit.create(ParseAPKService.class).parseAPK(fileHash);
+    }
+
+    private JSONObject parseResult(JSONObject info) throws IOException {
+        JSONObject response = info.getJSONObject("info");
         JSONObject phishingResult = new JSONObject(response.getString("result"));
 
         String phishingHash = response.getString("fileHash");
@@ -198,6 +260,7 @@ public class DataBuilder {
         result.put("channelDistribution", channelDistribution);
 
         return result;
+
     }
 
     private Double getCodeSim() {
