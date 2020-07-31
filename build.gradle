@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'
+    }
+    jcenter()
+    google()
+    mavenCentral()
+}
+
+
+task run(type: JavaExec) {
+    classpath =  sourceSets.main.runtimeClasspath
+    main = 'com.wangdian.birtweb.controller.ReportGenerator'
+}
+
+dependencies {
+    implementation 'com.innoventsolutions.birt.runtime:org.eclipse.birt.runtime_4.8.0-20180626:4.8.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
+    implementation "com.squareup.retrofit2:retrofit:2.3.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    implementation 'org.json:json:20200518'
+    // implementation fileTree(dir:'lib',include:['*.jar'])
+}
